@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:menu="@menu/toolbar_menu"
+            app:navigationIcon="@drawable/ic_baseline_menu_24">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/app_name"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_layout"
+        app:tabGravity="fill"
+        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+        app:tabTextColor="@color/black">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/home_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/home" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/sports_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sports" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/buzz_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/buzz" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/business_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/business" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tech_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tech" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
