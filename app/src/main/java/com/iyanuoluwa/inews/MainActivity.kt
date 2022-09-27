@@ -46,7 +46,6 @@ class MainActivity : AppCompatActivity() {
         viewPager.offscreenPageLimit = 4
 
         val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
         drawerLayout = findViewById(R.id.drawer)
         navigationView = findViewById(R.id.nav_view)
 

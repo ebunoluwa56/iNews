@@ -10,4 +10,6 @@ interface NewsRepository {
     suspend fun getTopHeadlines(category: Category) : Flow<Resource<NewsResponse>>
 
     suspend fun getOtherNews() : Flow<Resource<NewsResponse>>
+
+    suspend fun getOtherSegments(category: Category) : Flow<Resource<NewsResponse>>
 }

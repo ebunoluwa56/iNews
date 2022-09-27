@@ -1,20 +1,63 @@
 package com.iyanuoluwa.inews.ui.main
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.iyanuoluwa.inews.R
 import com.iyanuoluwa.inews.data.model.Category
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
-class NewsFragment : Fragment() {
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_news_fragmet, container, false)
+@AndroidEntryPoint
+class NewsFragment : Fragment(R.layout.fragment_news_fragmet) {
+
+    private lateinit var recyclerView: RecyclerView
+    private val viewModel: OtherFragmentViewModel by viewModels()
+    private var category: Category = Category.SPORTS
+    private lateinit var adapter: OtherSegmentAdapter
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initViews(view)
+
+        category = Category.fromCategoryName(requireArguments().getString("category").orEmpty())
+
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.viewModelEvents.collect {
+                    handleEvent(it)
+                }
+            }
+        }
+
+        viewModel.getOtherSegments(category)
+    }
+
+    private fun initViews(view: View) {
+        recyclerView = view.findViewById(R.id.other_segment_recycler_view)
+        adapter = OtherSegmentAdapter(requireContext(), mutableListOf())
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager =
+            LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+    }
+
+    private fun handleEvent(event: OtherSegmentViewModelEvent) {
+        when (event) {
+            is DisplaySegmentNews -> {
+                adapter.newsItems = event.articles
+                recyclerView.adapter?.notifyDataSetChanged()
+            }
+            is ShowErrorMessage -> {
+                Toast.makeText(requireActivity(), event.error, Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     companion object {

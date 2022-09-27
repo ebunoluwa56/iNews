@@ -6,6 +6,7 @@ import com.iyanuoluwa.inews.data.remote.NewsApi
 import com.iyanuoluwa.inews.data.repository.NewsRepositoryImpl
 import com.iyanuoluwa.inews.domain.repository.NewsRepository
 import com.iyanuoluwa.inews.domain.usecase.HomeFragmentUseCase
+import com.iyanuoluwa.inews.domain.usecase.OtherFragmentsUseCase
 import com.iyanuoluwa.inews.domain.usecase.UseCases
 import com.iyanuoluwa.inews.util.BASE_URL
 import dagger.Module
@@ -73,6 +74,9 @@ object AppModule {
     @Singleton
     @Provides
     fun provideUseCases(newsRepository: NewsRepository): UseCases {
-        return UseCases(HomeFragmentUseCase(newsRepository))
+        return UseCases(
+            HomeFragmentUseCase(newsRepository),
+            OtherFragmentsUseCase(newsRepository)
+        )
     }
 }

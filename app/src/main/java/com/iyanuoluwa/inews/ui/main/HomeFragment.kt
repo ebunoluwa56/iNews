@@ -57,7 +57,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     }
 
-    private fun handleEvent(event: HomeViewModelEvent) {
+    private fun handleEvent(event: ViewModelEvent) {
         when (event) {
             is ShowErrorToastMessage -> {
                 Toast.makeText(requireActivity(), event.error, Toast.LENGTH_LONG).show()

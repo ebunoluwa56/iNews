@@ -2,9 +2,11 @@ package com.iyanuoluwa.inews.data.repository
 
 import android.util.Log
 import com.iyanuoluwa.inews.data.model.Category
+import com.iyanuoluwa.inews.data.model.NewsResponse
 import com.iyanuoluwa.inews.data.remote.NewsApi
 import com.iyanuoluwa.inews.domain.repository.NewsRepository
 import com.iyanuoluwa.inews.util.Resource
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
@@ -28,6 +30,17 @@ class NewsRepositoryImpl @Inject constructor(
         try {
             val response = newsApi.getOtherNews()
             Log.i("NewsRepository1", response.toString())
+            emit(Resource.Success(response))
+        } catch (e: Exception) {
+            emit(Resource.Failure(e))
+        }
+    }
+
+    override suspend fun getOtherSegments(category: Category) = flow {
+        emit(Resource.Loading)
+        try {
+            val response = newsApi.getOtherSegments(category.categoryName)
+            Log.i("NewsRepository2", response.toString())
             emit(Resource.Success(response))
         } catch (e: Exception) {
             emit(Resource.Failure(e))

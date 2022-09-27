@@ -16,11 +16,11 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeFragmentViewModel @Inject constructor(
     private val useCases: UseCases
-) : BaseViewModel<HomeViewModelEvent>() {
+) : BaseViewModel<ViewModelEvent>() {
 
-    private val _viewModelEvents = MutableSharedFlow<HomeViewModelEvent>()
+    private val _viewModelEvents = MutableSharedFlow<ViewModelEvent>()
 
-    override val viewModelEvents: SharedFlow<HomeViewModelEvent>
+    override val viewModelEvents: SharedFlow<ViewModelEvent>
         get() = _viewModelEvents.asSharedFlow()
 
     fun getTopHeadlines(category: Category) {
